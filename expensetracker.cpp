@@ -179,7 +179,7 @@ void searchExpensesByCategory(const std::vector<Expense>& expenses, const std::s
         }
     }
     if (!found) {
-        std::cout << "No expenses found in this category.\n";
+        std::cout << "There is no expenses found in this category.\n";
     }
 }
 
@@ -200,6 +200,7 @@ int main() {
         std::cin >> choice;
 
         switch (choice) {
+
             case 1:
                 addExpense(expenses);
                 break;
