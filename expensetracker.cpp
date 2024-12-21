@@ -212,7 +212,7 @@ int main() {
                 break;
             case 4: {
                 std::string filename;
-                std::cout << "please Enter filename to save: ";
+                std::cout << "please enter filename to save: ";
                 std::cin >> filename;
                 saveToFile(expenses, filename);
                 break;
