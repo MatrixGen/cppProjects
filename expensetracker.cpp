@@ -208,7 +208,7 @@ int main() {
                 viewExpenses(expenses);
                 break;
             case 3:
-                std::cout << "Total Expenses: " << calculateTotal(expenses) << "\n";
+                std::cout << "Total Expenses : " << calculateTotal(expenses) << "\n";
                 break;
             case 4: {
                 std::string filename;
