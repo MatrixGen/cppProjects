@@ -196,7 +196,7 @@ int main() {
         std::cout << "5. Load Expenses from File\n";
         std::cout << "6. Search Expenses by Category\n";
         std::cout << "7. Exit\n";
-        std::cout << "Enter your choice: ";
+        std::cout << "Enter your choice here: ";
         std::cin >> choice;
 
         switch (choice) {
