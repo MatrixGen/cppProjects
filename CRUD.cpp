@@ -9,8 +9,8 @@ class Item
     public:
     std::string itemName;
     std::string itemId;
-    double itemPrice=0;
-    std::string description="";
+    double itemPrice;
+    std::string description;
 
     void display(){
         std::cout<<itemId<<std::endl<<itemName<<std::endl<<itemPrice<<std::endl<<description<<std::endl;
@@ -18,7 +18,7 @@ class Item
 
 };
 
-bool createItem();
+void createItem();
 bool deleteItem();
 void readItems();
 bool updateItem();
@@ -38,30 +38,27 @@ int main()
     {
         createItem();
     }
-    else if(option==2)
-    {
-        deleteItem();
-    }
+    
     else if(option==3)
     {
         readItems();
     }
-    else if(option==4)
-    {
-        updateItem();
-    }
+   
 
 
 }
 
-bool createItem(){
+void createItem(){
     Item newItem;
     std::cout<<"enter the item ID";
     std::cin>>newItem.itemId;
+
     std::cout<<"please enter the name of the item :";
     std::cin>>newItem.itemName;
+
     std::cout<<"enter the price of the item :$";
     std::cin>>newItem.itemPrice;
+
     std::cout<<"enter the item description if any :";
     std::cin>>newItem.description;
 
@@ -70,4 +67,25 @@ bool createItem(){
     std::cout<<"item created successfully !";
 
 
+
+}
+
+void readItems()
+{
+    int i;
+  
+    if(items.empty())
+    {
+        std::cout<<"no items found";
+    }
+    else
+    { 
+        for(i=0;i<=sizeof(items);i++)
+        {
+            std::cout<<items[i].itemName<<std::endl<<items[i].itemId<<std::endl<<items[i].itemPrice<<std::endl<<items[i].description<<std::endl;
+        }
+        
+
+    
+    }
 }
