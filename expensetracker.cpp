@@ -92,4 +92,12 @@ struct Expense {
     double amount;
     std::string date; // Format: YYYY-MM-DD
 };
+class ExpenseTracker {
+private:
+    std::vector<Expense> expenses;
 
+public:
+    void addExpense(const std::string& category, double amount, const std::string& date) {
+        expenses.push_back({category, amount, date});
+        std::cout << "Expense added successfully!\n";
+    }
