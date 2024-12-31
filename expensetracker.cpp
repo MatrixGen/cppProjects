@@ -81,3 +81,15 @@ File Format
 Saved files are in CSV format with each line representing an expense:
 YYYY-MM-DD,Category,Amount
 */
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
+#include <fstream>
+
+struct Expense {
+    std::string category;
+    double amount;
+    std::string date; // Format: YYYY-MM-DD
+};
+
