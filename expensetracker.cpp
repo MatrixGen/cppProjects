@@ -132,4 +132,25 @@ public:
             std::cerr << "Error: Unable to open file for writing.\n";
         }
     }
-
+ void loadFromFile(const std::string& filename) {
+        std::ifstream file(filename);
+        if (file.is_open()) {
+            expenses.clear();
+            std::string line;
+            while (std::getline(file, line)) {
+                size_t pos1 = line.find(',');
+                size_t pos2 = line.rfind(',');
+                if (pos1 != std::string::npos && pos2 != std::string::npos && pos1 != pos2) {
+                    std::string date = line.substr(0, pos1);
+                    std::string category = line.substr(pos1 + 1, pos2 - pos1 - 1);
+                    double amount = std::stod(line.substr(pos2 + 1));
+                    expenses.push_back({category, amount, date});
+                }
+            }
+            file.close();
+            std::cout << "Expenses loaded from " << filename << "\n";
+        } else {
+            std::cerr << "Error: Unable to open file for reading.\n";
+        }
+    }
+};
