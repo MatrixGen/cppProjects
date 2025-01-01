@@ -157,3 +157,13 @@ public:
 int main() {
     ExpenseTracker tracker;
     int choice;
+     do {
+        std::cout << "\nExpense Tracker\n";
+        std::cout << "1. Add Expense\n";
+        std::cout << "2. View Expenses\n";
+        std::cout << "3. Calculate Total Expenses\n";
+        std::cout << "4. Save Expenses to File\n";
+        std::cout << "5. Load Expenses from File\n";
+        std::cout << "6. Exit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
