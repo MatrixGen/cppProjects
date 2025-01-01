@@ -113,3 +113,11 @@ public:
                       << std::setw(10) << expense.amount << "\n";
         }
     }
+    double calculateTotal() const {
+        double total = 0;
+        for (const auto& expense : expenses) {
+            total += expense.amount;
+        }
+        return total;
+    }
+
