@@ -167,3 +167,16 @@ int main() {
         std::cout << "6. Exit\n";
         std::cout << "Enter your choice: ";
         std::cin >> choice;
+          switch (choice) {
+            case 1: {
+                std::string category, date;
+                double amount;
+                std::cout << "Enter category: ";
+                std::cin >> category;
+                std::cout << "Enter amount: ";
+                std::cin >> amount;
+                std::cout << "Enter date (YYYY-MM-DD): ";
+                std::cin >> date;
+                tracker.addExpense(category, amount, date);
+                break;
+            }
