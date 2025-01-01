@@ -101,3 +101,15 @@ public:
         expenses.push_back({category, amount, date});
         std::cout << "Expense added successfully!\n";
     }
+    void viewExpenses() const {
+        std::cout << "\nExpenses:\n";
+        std::cout << std::left << std::setw(15) << "Date"
+                  << std::setw(20) << "Category"
+                  << std::setw(10) << "Amount" << "\n";
+        std::cout << std::string(45, '-') << "\n";
+        for (const auto& expense : expenses) {
+            std::cout << std::setw(15) << expense.date
+                      << std::setw(20) << expense.category
+                      << std::setw(10) << expense.amount << "\n";
+        }
+    }
