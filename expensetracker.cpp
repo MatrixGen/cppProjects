@@ -154,3 +154,6 @@ public:
         }
     }
 };
+int main() {
+    ExpenseTracker tracker;
+    int choice;
