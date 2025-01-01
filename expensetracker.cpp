@@ -120,4 +120,16 @@ public:
         }
         return total;
     }
+      saveToFile(const std::string& filename) const {
+        std::ofstream file(filename);
+        if void(file.is_open()) {
+            for (const auto& expense : expenses) {
+                file << expense.date << "," << expense.category << "," << expense.amount << "\n";
+            }
+            file.close();
+            std::cout << "Expenses saved to " << filename << "\n";
+        } else {
+            std::cerr << "Error: Unable to open file for writing.\n";
+        }
+    }
 
