@@ -186,3 +186,10 @@ int main() {
                  case 3:
                 std::cout << "Total Expenses: " << tracker.calculateTotal() << "\n";
                 break;
+                case 4: {
+                std::string filename;
+                std::cout << "Enter filename to save: ";
+                std::cin >> filename;
+                tracker.saveToFile(filename);
+                break;
+            }
