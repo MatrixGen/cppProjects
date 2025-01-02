@@ -193,3 +193,10 @@ int main() {
                 tracker.saveToFile(filename);
                 break;
             }
+            case 5: {
+                std::string filename;
+                std::cout << "Enter filename to load: ";
+                std::cin >> filename;
+                tracker.loadFromFile(filename);
+                break;
+            }
