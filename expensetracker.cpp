@@ -200,3 +200,6 @@ int main() {
                 tracker.loadFromFile(filename);
                 break;
             }
+            case 6:
+                std::cout << "Exiting...\n";
+                break;
