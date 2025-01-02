@@ -180,3 +180,6 @@ int main() {
                 tracker.addExpense(category, amount, date);
                 break;
             }
+             case 2:
+                tracker.viewExpenses();
+                break;
