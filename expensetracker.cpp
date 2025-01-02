@@ -203,3 +203,6 @@ int main() {
             case 6:
                 std::cout << "Exiting...\n";
                 break;
+                default:
+                std::cout << "Invalid choice. Please try again.\n";
+        }
