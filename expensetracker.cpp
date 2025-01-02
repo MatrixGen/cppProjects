@@ -92,6 +92,7 @@ struct Expense {
     double amount;
     std::string date; // Format: YYYY-MM-DD
 };
+
 class ExpenseTracker {
 private:
     std::vector<Expense> expenses;
@@ -101,6 +102,7 @@ public:
         expenses.push_back({category, amount, date});
         std::cout << "Expense added successfully!\n";
     }
+
     void viewExpenses() const {
         std::cout << "\nExpenses:\n";
         std::cout << std::left << std::setw(15) << "Date"
@@ -113,6 +115,7 @@ public:
                       << std::setw(10) << expense.amount << "\n";
         }
     }
+
     double calculateTotal() const {
         double total = 0;
         for (const auto& expense : expenses) {
@@ -120,9 +123,10 @@ public:
         }
         return total;
     }
-      saveToFile(const std::string& filename) const {
+
+    void saveToFile(const std::string& filename) const {
         std::ofstream file(filename);
-        if void(file.is_open()) {
+        if (file.is_open()) {
             for (const auto& expense : expenses) {
                 file << expense.date << "," << expense.category << "," << expense.amount << "\n";
             }
@@ -132,7 +136,8 @@ public:
             std::cerr << "Error: Unable to open file for writing.\n";
         }
     }
- void loadFromFile(const std::string& filename) {
+
+    void loadFromFile(const std::string& filename) {
         std::ifstream file(filename);
         if (file.is_open()) {
             expenses.clear();
@@ -154,10 +159,12 @@ public:
         }
     }
 };
+
 int main() {
     ExpenseTracker tracker;
     int choice;
-     do {
+
+    do {
         std::cout << "\nExpense Tracker\n";
         std::cout << "1. Add Expense\n";
         std::cout << "2. View Expenses\n";
@@ -167,7 +174,8 @@ int main() {
         std::cout << "6. Exit\n";
         std::cout << "Enter your choice: ";
         std::cin >> choice;
-          switch (choice) {
+
+        switch (choice) {
             case 1: {
                 std::string category, date;
                 double amount;
@@ -180,13 +188,13 @@ int main() {
                 tracker.addExpense(category, amount, date);
                 break;
             }
-             case 2:
+            case 2:
                 tracker.viewExpenses();
                 break;
-                 case 3:
+            case 3:
                 std::cout << "Total Expenses: " << tracker.calculateTotal() << "\n";
                 break;
-                case 4: {
+            case 4: {
                 std::string filename;
                 std::cout << "Enter filename to save: ";
                 std::cin >> filename;
@@ -203,10 +211,10 @@ int main() {
             case 6:
                 std::cout << "Exiting...\n";
                 break;
-                default:
+            default:
                 std::cout << "Invalid choice. Please try again.\n";
         }
-        } while (choice != 6);
+    } while (choice != 6);
 
     return 0;
 }
