@@ -206,3 +206,7 @@ int main() {
                 default:
                 std::cout << "Invalid choice. Please try again.\n";
         }
+        } while (choice != 6);
+
+    return 0;
+}
