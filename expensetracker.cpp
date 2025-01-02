@@ -183,3 +183,6 @@ int main() {
              case 2:
                 tracker.viewExpenses();
                 break;
+                 case 3:
+                std::cout << "Total Expenses: " << tracker.calculateTotal() << "\n";
+                break;
