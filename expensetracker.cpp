@@ -1,86 +1,3 @@
-/*Introduction to the Expense Tracker Program
-
-This document provides an overview of the C++ Expense Tracker program. The program is designed to help users manage and track their financial expenses effectively. It offers functionalities such as adding, viewing, and calculating total expenses, as well as saving and loading expense data from a file.
-
-Features
-
-Add Expense:
-
-Allows the user to input a category, amount, and date for an expense.
-
-Records the expense in the system for future reference.
-
-View Expenses:
-
-Displays all recorded expenses in a tabular format.
-
-Columns include the date, category, and amount.
-
-Calculate Total Expenses:
-
-Computes the sum of all recorded expenses.
-
-Provides an overview of total spending.
-
-Save to File:
-
-Saves all recorded expenses to a file in CSV format.
-
-Ensures data persistence between program executions.
-
-Load from File:
-
-Reads expenses from a previously saved file.
-
-Enables users to restore data into the program.
-
-Program Flow
-
-Main Menu:
-
-The user is presented with a menu to select an option (e.g., add expense, view expenses, etc.).
-
-User Input Validation:
-
-Ensures the user enters valid data (e.g., correct date format, numeric values for amounts).
-
-File Handling:
-
-Implements file I/O operations to save and load data.
-
-Code Components
-
-Expense** Structure:**
-
-Holds details of a single expense (category, amount, and date).
-
-ExpenseTracker** Class:**
-
-Manages a collection of Expense objects.
-
-Contains methods to add, view, calculate totals, save, and load expenses.
-
-Main Function:
-
-Serves as the entry point of the program.
-
-Provides a user interface to interact with the ExpenseTracker class.
-
-How to Use
-
-Run the program.
-
-Use the menu to add expenses or view existing ones.
-
-Save data to a file when exiting to ensure persistence.
-
-Reload saved data when restarting the program to continue where you left off.
-
-File Format
-
-Saved files are in CSV format with each line representing an expense:
-YYYY-MM-DD,Category,Amount
-*/
 #include <iostream>
 #include <vector>
 #include <string>
@@ -88,12 +5,66 @@ YYYY-MM-DD,Category,Amount
 #include <fstream>
 #include <algorithm>
 
+// Structure to hold expense details
 struct Expense {
     std::string category;
     double amount;
     std::string date; // Format: YYYY-MM-DD
 };
 
+// Function to register a new user
+bool registerUser(const std::string& filename) {
+    std::string username, password;
+    
+    std::cout << "Create a new account\n";
+    std::cout << "Enter a username: ";
+    std::cin >> username;
+    std::cout << "Enter a password: ";
+    std::cin >> password;
+
+    // Open the file to append user data
+    std::ofstream file(filename, std::ios::app);
+    if (file.is_open()) {
+        file << username << "," << password << "\n";
+        file.close();
+        std::cout << "Registration successful!\n";
+        return true;
+    } else {
+        std::cerr << "Error: Unable to open file for writing.\n";
+        return false;
+    }
+}
+
+// Function to login a user
+bool loginUser(const std::string& filename) {
+    std::string username, password;
+    std::string stored_username, stored_password;
+    
+    std::cout << "Login\n";
+    std::cout << "Enter username: ";
+    std::cin >> username;
+    std::cout << "Enter password: ";
+    std::cin >> password;
+
+    std::ifstream file(filename);
+    if (file.is_open()) {
+        while (std::getline(file, stored_username, ',') && std::getline(file, stored_password)) {
+            if (stored_username == username && stored_password == password) {
+                file.close();
+                std::cout << "Login successful!\n";
+                return true;
+            }
+        }
+        file.close();
+        std::cout << "Invalid username or password. Please try again.\n";
+        return false;
+    } else {
+        std::cerr << "Error: Unable to open file for reading.\n";
+        return false;
+    }
+}
+
+// Function to add an expense
 void addExpense(std::vector<Expense>& expenses) {
     std::string category, date;
     double amount;
@@ -107,6 +78,7 @@ void addExpense(std::vector<Expense>& expenses) {
     std::cout << "Expense added successfully!\n";
 }
 
+// Function to view expenses
 void viewExpenses(const std::vector<Expense>& expenses) {
     std::cout << "\nExpenses:\n";
     std::cout << std::left << std::setw(15) << "Date"
@@ -120,6 +92,7 @@ void viewExpenses(const std::vector<Expense>& expenses) {
     }
 }
 
+// Function to calculate total expenses
 double calculateTotal(const std::vector<Expense>& expenses) {
     double total = 0;
     for (const auto& expense : expenses) {
@@ -128,6 +101,7 @@ double calculateTotal(const std::vector<Expense>& expenses) {
     return total;
 }
 
+// Function to save expenses to a file
 void saveToFile(const std::vector<Expense>& expenses, const std::string& filename) {
     std::ofstream file(filename);
     if (file.is_open()) {
@@ -141,6 +115,7 @@ void saveToFile(const std::vector<Expense>& expenses, const std::string& filenam
     }
 }
 
+// Function to load expenses from a file
 void loadFromFile(std::vector<Expense>& expenses, const std::string& filename) {
     std::ifstream file(filename);
     if (file.is_open()) {
@@ -163,6 +138,7 @@ void loadFromFile(std::vector<Expense>& expenses, const std::string& filename) {
     }
 }
 
+// Function to search expenses by category
 void searchExpensesByCategory(const std::vector<Expense>& expenses, const std::string& category) {
     std::cout << "\nExpenses in category: " << category << "\n";
     std::cout << std::left << std::setw(15) << "Date"
@@ -184,8 +160,34 @@ void searchExpensesByCategory(const std::vector<Expense>& expenses, const std::s
 }
 
 int main() {
+    const std::string user_file = "users.txt";  // File to store user credentials
+    const std::string expense_file = "expenses.txt";  // File to store expenses
     std::vector<Expense> expenses;
     int choice;
+    
+    int option;
+    do {
+        std::cout << "1. Register\n";
+        std::cout << "2. Login\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> option;
+        
+        if (option == 1) {
+            if (registerUser(user_file)) {
+                break;  // Proceed to login after registration
+            }
+        } else if (option == 2) {
+            if (loginUser(user_file)) {
+                break;  // Proceed to expense tracker if login is successful
+            }
+        } else if (option == 3) {
+            std::cout << "Exiting...\n";
+            return 0;
+        } else {
+            std::cout << "Invalid choice. Try again.\n";
+        }
+    } while (true);
 
     do {
         std::cout << "\nExpense Tracker\n";
@@ -196,11 +198,10 @@ int main() {
         std::cout << "5. Load Expenses from File\n";
         std::cout << "6. Search Expenses by Category\n";
         std::cout << "7. Exit\n";
-        std::cout << "Enter your choice here: ";
+        std::cout << "Enter your choice: ";
         std::cin >> choice;
 
         switch (choice) {
-
             case 1:
                 addExpense(expenses);
                 break;
@@ -208,20 +209,14 @@ int main() {
                 viewExpenses(expenses);
                 break;
             case 3:
-                std::cout << "Total Expenses : " << calculateTotal(expenses) << "\n";
+                std::cout << "Total Expenses: " << calculateTotal(expenses) << "\n";
                 break;
             case 4: {
-                std::string filename;
-                std::cout << "please enter filename to save: ";
-                std::cin >> filename;
-                saveToFile(expenses, filename);
+                saveToFile(expenses, expense_file);
                 break;
             }
             case 5: {
-                std::string filename;
-                std::cout << "Enter filename to load: ";
-                std::cin >> filename;
-                loadFromFile(expenses, filename);
+                loadFromFile(expenses, expense_file);
                 break;
             }
             case 6: {
@@ -235,7 +230,7 @@ int main() {
                 std::cout << "Exiting...\n";
                 break;
             default:
-                std::cout << "Invalid choice. Please try again.\n";
+                std::cout << "Invalid choice. Try again.\n";
         }
     } while (choice != 7);
 
